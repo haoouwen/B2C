@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.b2c.ws.usermapper.AddressMapper">
+
+
+
+    <select id="select_address" resultType="com.atguigu.b2c.ws.bean.Address">
+    
+     select * from t_mall_address where yh_id=#{user_id}
+    
+    </select>
+    <update id="update_address" parameterType="com.atguigu.b2c.ws.bean.Address">
+    
+    update from t_mall_address <set>
+    
+    <if test="yh_dz !=null">yh_dz =#{yh_dz},</if>
+    <if test="shjr !=null">shjr =#{shjr},</if>
+    <if test="lxfsh !=null">lxfsh =#{lxfsh} </if></set>
+    where id=#{id}
+    </update>
+    <delete id="insert_address" parameterType="com.atguigu.b2c.ws.bean.Address">
+    
+     delete from t_mall_address where id= #{id}
+    
+    </delete>
+    <insert id="delete_address" parameterType="com.atguigu.b2c.ws.bean.Address">
+    insert into t_mall_address 
+    (yh_dz,yh_id,shjr,lxfsh)
+    values(#{yh_dz},#{yh_id},#{shjr},#{lxfsh})
+    </insert>
+   
+</mapper>

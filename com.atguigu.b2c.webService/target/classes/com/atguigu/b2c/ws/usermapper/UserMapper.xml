@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.b2c.ws.usermapper.UserMapper">
+
+
+ <select id="select_user" resultType="com.atguigu.b2c.ws.bean.UserAccount">
+     select * from t_mall_user_account where yh_mch=#{yh_mch}
+  </select>
+ <select id="login" resultType="com.atguigu.b2c.ws.bean.UserAccount">
+     select * from t_mall_user_account where yh_mch=#{yh_mch} and yh_mm=#{yh_mm}
+  </select>
+  
+  
+   <insert id="insert_user" parameterType="com.atguigu.b2c.ws.bean.UserAccount">
+    insert into t_mall_user_account 
+    (yh_mch,yh_nch,yh_mm,yh_xm,yh_shjh,yh_yx,yh_tx)
+    values(#{yh_mch},#{yh_nch},#{yh_mm},#{yh_xm},#{yh_shjh},#{yh_yx},#{yh_tx})
+   
+   </insert>
+   
+   <update id="update_user" parameterType="com.atguigu.b2c.ws.bean.UserAccount">
+     update  t_mall_user_account 
+     <set>
+      <if test="yh_mch !=null">
+      yh_mch=#{yh_mch} ,
+      </if>
+      <if test="yh_nch !=null">
+      yh_nch=#{yh_nch} ,
+      </if>
+      <if test="yh_mm !=null">
+      yh_mm=#{yh_mm} ,
+      </if>
+      <if test="yh_xm !=null">
+      yh_xm=#{yh_xm} ,
+      </if>
+      <if test="yh_yx !=null">
+      yh_yx=#{yh_yx} ,
+      </if>
+      <if test="yh_tx !=null">
+      yh_tx=#{yh_tx}
+      </if>
+     </set>
+     where id=#{id}
+   </update>
+   
+    <delete id="delete_user" parameterType="com.atguigu.b2c.ws.bean.UserAccount">
+       delete from t_mall_user_account where id= #{id}
+    
+    </delete>
+     
+    
+</mapper>

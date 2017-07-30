@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.b2c.sale.mapper.SearchMapper">
+
+
+   <select id="select_pro_by_sku_id" resultMap="pro_Info_Map">
+      select sku.id as sku_id,pro.id as pro_id, sku.* , pro.*  from t_mall_sku sku ,t_mall_product pro
+        where sku.shp_id=pro.id and sku.id=#{sku_id}
+    
+   </select>
+     <resultMap type="com.atguigu.b2c.sale.bean.ObjSkuPro" autoMapping="true" id="pro_Info_Map">
+        <id column="sku_id" property="id"/>
+        <association property="product" autoMapping="true" javaType="com.atguigu.b2c.sale.bean.Product">
+          <id column="pro_id" property="id"/>
+        </association>
+     </resultMap>
+   <select id="select_ObjSkuPro_by_shp_id" resultType="com.atguigu.b2c.sale.bean.ObjSkuPro">
+      select * from t_mall_sku where id = #{shu_id}
+   </select>
+     <select id="select_search_attr"  resultMap="ObjSkuProMap" >
+	     SELECT p.id as p_id ,tm.id as tm_id ,s.id as s_id ,
+	      p.* ,tm.*,s.* FROM  
+		 t_mall_class_1 c1,
+		t_mall_trade_mark tm,
+		t_mall_tm_class tc,
+		t_mall_product p,
+		t_mall_sku s
+		 WHERE s.shp_id = p.id AND 
+		 
+		 p.flbh1 = c1.id AND 
+		 c1.id = tc.flbh1 AND tc.pp_id = tm.id 
+		 AND  p.pp_id =  tm.id AND
+		  p.flbh2=#{flbh2}
+		  ${sql}
+		  
+    </select>
+     
+  
+    <select id="select_ObjSkuPro" resultMap="ObjSkuProMap" >
+	     SELECT p.id as p_id ,tm.id as tm_id ,s.id as s_id ,
+	      p.* ,tm.*,s.* FROM  
+		
+		 t_mall_class_1 c1,
+		t_mall_trade_mark tm,
+		t_mall_tm_class tc,
+		t_mall_product p,
+		t_mall_sku s
+		 WHERE s.shp_id = p.id AND 
+		 
+		 p.flbh1 = c1.id AND 
+		 c1.id = tc.flbh1 AND tc.pp_id = tm.id 
+		 AND  p.pp_id =  tm.id AND
+		  p.flbh2=#{flbh2}
+    </select>
+    <resultMap type="com.atguigu.b2c.sale.bean.ObjSkuPro" autoMapping="true" id="ObjSkuProMap">
+       <result column="s_id" property="id"/>
+      <association property="product" autoMapping="true" 
+      javaType="com.atguigu.b2c.sale.bean.Product">
+      <result column="p_id" property="id"/>
+      </association>
+      <association property="tradeMark" autoMapping="true"  
+      javaType="com.atguigu.b2c.sale.bean.TradeMark">
+      <result column="tm_id" property="id"/>
+      </association>
+    </resultMap>
+    
+    <select id="select_attrByClass2_id" resultMap="select_attrByClass2_id_map">
+        SELECT   attr.*,val.* ,attr.id as attr_id,val.id as val_id FROM t_mall_attr attr JOIN t_mall_value val ON
+			attr.id  =val.shxm_id
+			 WHERE attr.flbh2 =#{flbh2}
+    </select>
+    <resultMap type="com.atguigu.b2c.sale.bean.Class2Attr" autoMapping="true" id="select_attrByClass2_id_map">
+       <id column="attr_id"  property="id"/>
+       <collection property="list" autoMapping="true" ofType="com.atguigu.b2c.sale.bean.AttrValue">
+          <id  column="val_id" property="id"/>
+       </collection>
+    </resultMap>
+    
+    
+</mapper>

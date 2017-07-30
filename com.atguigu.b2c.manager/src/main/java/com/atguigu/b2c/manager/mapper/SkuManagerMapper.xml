@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.b2c.manager.mapper.SkuManagerMapper">
+
+  
+    <insert id="insertSku" parameterType="com.atguigu.b2c.manager.bean.Sku" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+      insert into t_mall_sku (kc,jg,sku_mch,kcdz)
+      values(#{kc},#{jg},#{sku_mch},#{kcdz})
+    
+    </insert>
+  
+    <insert id="insertSkuAttr" parameterType="java.util.HashMap">
+       insert into t_mall_sku_attr_value (shxm_id,shxzh_id,shp_id,sku_id)values
+       (#{shxm_id},#{shxzh_id},#{shp_id},#{sku_id})
+    </insert>
+    
+    <select id="get_shp_mch" parameterType="com.atguigu.b2c.manager.bean.Product" resultType="com.atguigu.b2c.bean.Product">
+     select * from  t_mall_product where flbh1=#{flbh1} and
+     flbh2=#{flbh2} and pp_id=#{pp_id}
+    
+    </select>
+    <select id="getAttrByClass2Id" resultMap="getAttrByClass2Id_map">
+		  select attr.* ,val.*,attr.id as attr_id,val.id as value_id from 
+		  t_mall_attr attr,t_mall_value val
+		  <where>
+		    attr.id =val.shxm_id
+		    <if test="flbh2 !=0">
+		    and attr.flbh2 = #{flbh2}
+		    </if>
+		  </where>
+		  </select>
+       <resultMap type="com.atguigu.b2c.manager.bean.Class2Attr" id="getAttrByClass2Id_map" autoMapping="true">
+         <result  column="attr_id" property="id" />
+         <collection property="list" ofType="com.atguigu.b2c.manager.bean.AttrValue"
+          autoMapping="true">
+            <result column="value_id" property="id"/>
+          </collection>
+       </resultMap>
+      
+    
+</mapper>
