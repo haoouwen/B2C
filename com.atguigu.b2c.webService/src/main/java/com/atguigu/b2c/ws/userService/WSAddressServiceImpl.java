@@ -12,8 +12,9 @@ public class WSAddressServiceImpl implements WSAddressService {
 	@Autowired
 	private AddressMapper addressMapper;
 	public List<Address>  get_address(Integer user_id) {
-		
-		return addressMapper.select_address(user_id);
+		List<Address> select_address = addressMapper.select_address(user_id);
+		System.out.println(select_address.size());
+		return select_address;
 	}
 
 	public void update_address(Address address) {

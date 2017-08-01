@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.atguigu.b2c.ws.bean.UserAccount;
 import com.atguigu.b2c.ws.usermapper.UserMapper;
+import com.atguigu.b2c.ws.util.MyKeyShitch;
 
 public class WSUserServiceImpl implements WSUserService {
 
@@ -15,6 +16,9 @@ public class WSUserServiceImpl implements WSUserService {
 	}
 
 	public UserAccount login(UserAccount user) {
+		
+		MyKeyShitch.setKey(user.getYh_lx());
+		MyKeyShitch.getKey();
 		return userMapper.login(user);
 	}
 

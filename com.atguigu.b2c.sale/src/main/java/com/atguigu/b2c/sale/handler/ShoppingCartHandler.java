@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.b2c.sale.bean.AjaxData;
+import com.atguigu.b2c.sale.bean.Orders;
 import com.atguigu.b2c.sale.bean.ShoppingCart;
 import com.atguigu.b2c.sale.bean.UserAccount;
 import com.atguigu.b2c.sale.service.ShoppingCartService;
@@ -30,7 +31,6 @@ public class ShoppingCartHandler {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 
-	
 	 @RequestMapping("delete_cart")
 	 @ResponseBody
 	 public AjaxData delete_shoppingCart(HttpSession session,@CookieValue(value="str_cookies_cart",required=false)String str_cookies_cart,Integer sku_id){
@@ -62,7 +62,6 @@ public class ShoppingCartHandler {
 		}
 		 return ajaxData;
 	 }
-	
 	//更新购物车
 	 /**
 	 * @return
@@ -74,7 +73,6 @@ public class ShoppingCartHandler {
 		 Object user = session.getAttribute("user");
 		 ArrayList<ShoppingCart> get_list =null;
 		 //将boolean的选中状态改为Integer类型
-		 
 		 if(user==null){
 					//将cookies字符创转化为List
 			 get_list = MyStringUtils.get_list(str_cookies_cart, ShoppingCart.class);
@@ -90,7 +88,6 @@ public class ShoppingCartHandler {
 							shoppingCart.setShfxz("0");
 						}
 					}
-					
 				shoppingCart.setHj(shoppingCart.getSku_jg().multiply(new BigDecimal(tjshl+"")));
 				}
 			}
@@ -162,6 +159,13 @@ public class ShoppingCartHandler {
 		 }else{
 			 get_list = (ArrayList<ShoppingCart>)session.getAttribute("str_session_cart");
 		 }
+		 
+		 BigDecimal num = new BigDecimal("0");
+			
+			for (ShoppingCart shoppingCart : get_list) {
+				num =num.add(shoppingCart.getHj());
+			}
+			ajaxData.setMessage(num+"");
 		 ajaxData.setShoppingCart_list(get_list);
 		 map.put("get_list", get_list);
 		 return ajaxData;
@@ -241,6 +245,21 @@ public class ShoppingCartHandler {
 		
 		return "add_cookies_success";
 	}
+	@ResponseBody
+	@RequestMapping("update_num")
+	public AjaxData update_num(BigDecimal num,BigDecimal hj,boolean shfxz){
+		AjaxData ajaxData = new AjaxData();
+		if(!shfxz){
+			num =num.subtract(hj);
+		}else{
+			num =num.add(hj);
+		}
+		ajaxData.setMessage(num+"");
+		return ajaxData;
+	}
+	
+	
+	
 	
 	
 }

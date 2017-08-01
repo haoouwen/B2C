@@ -21,7 +21,6 @@ import com.atguigu.b2c.sale.bean.ShoppingCart;
 import com.atguigu.b2c.sale.bean.UserAccount;
 import com.atguigu.b2c.sale.service.UserService;
 import com.atguigu.b2c.sale.util.MyStringUtils;
-import com.atguigu.b2c.sale.util.MyUserWs;
 import com.atguigu.b2c.ws.userService.AddressService;
 import com.atguigu.b2c.ws.userService.WSUserService;
 
@@ -84,10 +83,11 @@ public class UserHandler {
 	public String login(UserAccount userAccount, HttpServletRequest request, HttpSession session, ModelMap map,
 			HttpServletResponse response) {
 		UserAccount login = webUser.login(userAccount);
-		
-		
+	
 		System.out.println(login);
 		UserAccount user = userService.getUserAccount(userAccount);
+		
+		
 		if (userAccount != null) {
 			Cookie cookie = new Cookie("user", userAccount.getYh_mch());
 			cookie.setMaxAge(60 * 60);

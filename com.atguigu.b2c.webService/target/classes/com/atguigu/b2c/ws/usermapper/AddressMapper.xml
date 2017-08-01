@@ -8,6 +8,7 @@
 
 
     <select id="select_address" resultType="com.atguigu.b2c.ws.bean.Address">
+     
     
      select * from t_mall_address where yh_id=#{user_id}
     

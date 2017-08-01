@@ -50,6 +50,14 @@
 					<div class="input2">
 						<input type="text" class="input1_01" name="yh_mm"/>
 					</div>
+					<div class="box_01">
+					<input type="checkbox" class="box_01_box"/>
+					<div class="box_01_both">
+						<input type="radio" name="yh_lx" value="1"/>自主用户
+						<input type="radio" name="yh_lx" value="2"/>统一用户
+					</div>
+				</div>
+					
 				</form>
 				<div class="blank_01"></div>
 				<div class="blank_01"></div>
@@ -60,6 +68,7 @@
 						<div class="box_01_both_2">忘记密码？</div>
 					</div>
 				</div>
+				
 				<div class="blank_01"></div>
 				<a href="javascript:login();" class="aline">
 					<div class="red_button" onclick="to_submit()">

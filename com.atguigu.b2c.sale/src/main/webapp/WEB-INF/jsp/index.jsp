@@ -141,7 +141,7 @@
 
      <div class="banner">
 		<div class="ban">
-			<img src="imge/banner.jpg" width="980" height="380" alt="">
+			<img src="imges/banner.jpg" width="980" height="380" alt="">
 		</div>
 	</div>
 

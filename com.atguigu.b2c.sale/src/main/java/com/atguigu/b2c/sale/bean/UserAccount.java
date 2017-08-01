@@ -13,6 +13,7 @@ public class UserAccount {
 	yh_jb*/
 	private Integer id;
 	private String yh_mch;
+	private String yh_lx;
 	private String yh_nch;
 	private String yh_xm;
 	private String yh_mm;
@@ -21,6 +22,12 @@ public class UserAccount {
 	private String yh_tx;
 	private String yh_jb;
 	
+	public String getYh_lx() {
+		return yh_lx;
+	}
+	public void setYh_lx(String yh_lx) {
+		this.yh_lx = yh_lx;
+	}
 	public String getYh_mm() {
 		return yh_mm;
 	}
